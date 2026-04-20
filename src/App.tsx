@@ -28,7 +28,7 @@ export default function App() {
         >
           <div className="w-24 h-24 rounded-2xl overflow-hidden border-4 border-islamic-gold shadow-2xl shadow-islamic-gold/30 mb-6 mx-auto bg-islamic-navy-light">
             <img 
-              src="https://picsum.photos/seed/gold-calligraphy/400/400" 
+              src="/icon.svg" 
               alt="الرقية الشرعية" 
               className="w-full h-full object-cover scale-110"
               referrerPolicy="no-referrer"

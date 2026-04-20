@@ -12,7 +12,7 @@ export default function Header() {
         >
           <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-islamic-gold shadow-lg shadow-islamic-gold/20 bg-islamic-navy-light">
             <img 
-              src="https://picsum.photos/seed/gold-calligraphy/200/200" 
+              src="/icon.svg" 
               alt="Logo" 
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"

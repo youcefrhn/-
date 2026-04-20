@@ -1,9 +1,58 @@
+import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { type RuqyahSection } from "../data/ruqyahData";
-import { Quote } from "lucide-react";
+import { Quote, Copy, Check } from "lucide-react";
 
 interface SectionContentProps {
   section: RuqyahSection;
+}
+
+function CopyButton({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy text: ", err);
+    }
+  };
+
+  return (
+    <button
+      onClick={handleCopy}
+      className={`p-2 rounded-xl transition-all duration-300 flex items-center justify-center ${
+        copied 
+          ? "bg-green-500/20 text-green-400 border border-green-500/40" 
+          : "bg-islamic-gold/10 text-islamic-gold/60 hover:text-islamic-gold hover:bg-islamic-gold/20 border border-islamic-gold/20"
+      }`}
+      title={copied ? "تم النسخ" : "نسخ النص"}
+    >
+      <AnimatePresence mode="wait">
+        {copied ? (
+          <motion.div
+            key="check"
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.5, opacity: 0 }}
+          >
+            <Check size={16} />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="copy"
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.5, opacity: 0 }}
+          >
+            <Copy size={16} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </button>
+  );
 }
 
 export default function SectionContent({ section }: SectionContentProps) {
@@ -42,17 +91,21 @@ export default function SectionContent({ section }: SectionContentProps) {
               {/* Decorative accent */}
               <div className="absolute top-0 right-0 w-16 h-16 bg-islamic-gold/5 rounded-bl-full -mr-8 -mt-8 group-hover:bg-islamic-gold/10 transition-colors" />
               
-              <p className={`${item.verse ? "quran-text text-center italic" : "text-islamic-white/90 leading-relaxed text-lg"}`}>
-                {item.text}
-              </p>
-              
-              {item.reference && (
-                <div className="mt-4 flex justify-end">
-                  <span className="text-xs font-bold text-islamic-gold/60 uppercase tracking-widest px-3 py-1 rounded-full bg-islamic-gold/10 border border-islamic-gold/20">
-                    {item.reference}
-                  </span>
+              <div className="flex flex-col gap-4">
+                <p className={`${item.verse ? "quran-text text-center italic" : "text-islamic-white/90 leading-relaxed text-lg"}`}>
+                  {item.text}
+                </p>
+                
+                <div className="flex items-center justify-between mt-2">
+                  <CopyButton text={item.text} />
+                  
+                  {item.reference && (
+                    <span className="text-xs font-bold text-islamic-gold/60 uppercase tracking-widest px-3 py-1 rounded-full bg-islamic-gold/10 border border-islamic-gold/20">
+                      {item.reference}
+                    </span>
+                  )}
                 </div>
-              )}
+              </div>
             </motion.div>
           ))}
         </div>
