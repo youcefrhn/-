@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Tajawal", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Amiri", serif;
+  
+  --color-islamic-navy: #0f172a;
+  --color-islamic-navy-light: #1e293b;
+  --color-islamic-gold: #d4af37;
+  --color-islamic-gold-light: #e6c15c;
+  --color-islamic-white: #f8fafc;
+}
+
+@layer base {
+  body {
+    @apply bg-islamic-navy text-islamic-white font-sans antialiased select-none;
+    direction: rtl;
+    background-image: radial-gradient(circle at 2px 2px, rgba(212, 175, 55, 0.05) 1px, transparent 0);
+    background-size: 40px 40px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Allow selection for Quranic text and content items */
+  .quran-text, .glass-card p {
+    @apply select-text;
+  }
+  
+  .quran-text {
+    @apply font-serif text-2xl leading-relaxed text-islamic-gold;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-islamic-navy-light/50 backdrop-blur-md border border-islamic-gold/20 rounded-2xl shadow-xl;
+  }
+}
